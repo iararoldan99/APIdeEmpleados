@@ -58,10 +58,10 @@ public class Empleado {
         return sueldo;
     }
 
-    public void setSueldo(BigDecimal sueldo) {
-        this.sueldo = sueldo;
+    public void setSueldo(BigDecimal sueldoBase) {
+        this.sueldo = sueldoBase;
     }
-
+    
     public Date getFechaAlta() {
         return fechaAlta;
     }
