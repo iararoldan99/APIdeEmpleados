@@ -26,6 +26,7 @@ public class CategoriaController {
         return ResponseEntity.ok(gR);
 
     }
+    
 
     @GetMapping("/categorias") // el servidor devolvera la lista cuando alguien haga GET 
     public ResponseEntity<List<Categoria>> listarCategoria(){

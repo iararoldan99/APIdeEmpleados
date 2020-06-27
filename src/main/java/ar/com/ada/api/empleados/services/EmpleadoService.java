@@ -13,12 +13,20 @@ public class EmpleadoService {
     @Autowired
     private EmpleadoRepository repo;
 
-    public void crearEmpleado(Empleado empleado){
-        repo.save(empleado);
+    public void grabar(Empleado empleada) {
+        repo.save(empleada);
     }
 
-    public List<Empleado> obtenerEmpleados(){
+    public void crearEmpleado(Empleado empleado) {
+        grabar(empleado);
+    }
+
+    public List<Empleado> obtenerEmpleados() {
         return repo.findAll();
     }
 
-} 
+    public Empleado obtenerPorId(int id) {
+        return repo.findById(id);
+    }
+
+}
