@@ -16,4 +16,8 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Integer>{
     Empleado findById(int id); 
     
     // no lleva codigo dentro
+
+    Empleado findByNombre(String nombre);
+
+    Empleado findByDni(int id);
 } 

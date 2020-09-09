@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.com.ada.api.empleados.entities.AltaEmpleado;
 import ar.com.ada.api.empleados.entities.Empleado;
+import ar.com.ada.api.empleados.entities.AltaEmpleado.AltaEmpleadoResultEnum;
+import ar.com.ada.api.empleados.entities.Empleado.EmpleadoEstadoEnum;
 import ar.com.ada.api.empleados.models.response.GenericResponse;
 import ar.com.ada.api.empleados.models.request.InfoEmpleadaRequest;
 import ar.com.ada.api.empleados.models.request.SueldoModifRequest;
@@ -32,15 +35,22 @@ public class EmpleadoController {
         empleado.setNombre(info.nombre);
         empleado.setEdad(info.edad);
         empleado.setSueldo(info.sueldo);
+        empleado.setDni(info.dni);
         empleado.setFechaAlta(new Date());
         empleado.setCategoria(categoriaService.obtenerPorId(info.categoriaId));
-        empleado.setEstadoId(1);
-        empleadoService.crearEmpleado(empleado);
+        empleado.setEstadoId(EmpleadoEstadoEnum.ACTIVO);
+        AltaEmpleado alta = empleadoService.crearEmpleado(empleado);
         GenericResponse gR = new GenericResponse();
+        if (alta.getResultado() == AltaEmpleadoResultEnum.REALIZADA) {
         gR.isOk = true;
         gR.id = empleado.getEmpleadoId();
         gR.message = "Empleada creada con exito";
-        return ResponseEntity.ok(gR);
+    } else {
+        gR.isOk = false;
+        gR.message = "Error al crear empleada, motivo: " + alta.getMotivo();
+    }
+    return ResponseEntity.ok(gR);
+
     }
 
     @GetMapping("/empleadas")
@@ -99,7 +109,7 @@ public class EmpleadoController {
             // return new ResponseEntity<>(HttpStatus.NOT_FOUND)
         }
         empleada.setFechaBaja(new Date());
-        empleada.setEstadoId(1); // 1 significa INACTIVO
+        empleada.setEstadoId(EmpleadoEstadoEnum.DESVINCULADO);
         empleadoService.grabar(empleada);
         GenericResponse gR = new GenericResponse();
         gR.isOk = true;

@@ -7,4 +7,6 @@ public class InfoEmpleadaRequest {
     public int edad;
     public BigDecimal sueldo;
     public int categoriaId;    
+    public int dni;
+
 }      
