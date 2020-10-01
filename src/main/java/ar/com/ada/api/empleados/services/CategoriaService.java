@@ -27,7 +27,7 @@ public class CategoriaService {
        return (repo.findAll()); // genera una lista de categorias y se hace un return 
     }
 
-    public Categoria obtenerPorId(int categoriaId){
+    public Categoria obtenerPorId(Integer categoriaId){
         // el findById devuelve un optional, si la encuentra devuelve un objeto, sino nulo
         Optional<Categoria> c = repo.findById(categoriaId);
 

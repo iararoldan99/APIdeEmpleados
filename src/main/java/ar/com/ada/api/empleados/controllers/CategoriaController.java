@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,15 @@ public class CategoriaController {
     @GetMapping("/categorias") // el servidor devolvera la lista cuando alguien haga GET 
     public ResponseEntity<List<Categoria>> listarCategoria(){
       return ResponseEntity.ok(categoriaService.obtenerCategorias());
+
+    }
+
+    @GetMapping("/categorias/{categoriaId}")
+    public ResponseEntity<Categoria> obtenerPorId(@PathVariable Integer categoriaId){
+        Categoria categoria = categoriaService.obtenerPorId(categoriaId);
+    if (categoria == null)
+      return ResponseEntity.notFound().build();
+    return ResponseEntity.ok(categoria);
 
     }
 

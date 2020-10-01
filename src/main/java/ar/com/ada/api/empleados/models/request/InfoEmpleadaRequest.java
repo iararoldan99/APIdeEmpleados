@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 public class InfoEmpleadaRequest {
     public String nombre;
-    public int edad;
+    public Integer edad;
     public BigDecimal sueldo;
-    public int categoriaId;    
-    public int dni;
+    public Integer categoria;    
+    public Integer dni;
 
 }      

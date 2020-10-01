@@ -53,8 +53,8 @@ public class EmpleadoService {
         return empleadoRepository.findAll();
     }
 
-    public Empleado obtenerPorId(int id) {
-        return empleadoRepository.findById(id);
+    public Empleado obtenerPorId(Integer id) {
+        return empleadoRepository.findByEmpleadoId(id);
     }
 
     /***

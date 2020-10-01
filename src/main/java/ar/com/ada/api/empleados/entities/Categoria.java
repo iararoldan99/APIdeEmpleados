@@ -17,7 +17,7 @@ public class Categoria {
     @Column(name = "categoria_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int categoriaId;
+    private Integer categoriaId;
     private String nombre;
     @Column(name = "sueldo_base")
     private BigDecimal sueldoBase;
@@ -51,14 +51,6 @@ public class Categoria {
     @JsonIgnore
     @Transient // No meterlo a la base de datos. Es transitorio
     private SueldoCalculator sueldoStrategy;
-
-    public int getCategoriaId() {
-        return categoriaId;
-    }
-
-    public void setCategoriaId(int categoriaId) {
-        this.categoriaId = categoriaId;
-    }
 
     public String getNombre() {
         return nombre;
@@ -125,6 +117,14 @@ public class Categoria {
 
     public BigDecimal calcularSueldo(Empleado empleado) {
         return this.getSueldoStrategy().calcularSueldo(empleado);
+    }
+
+    public Integer getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Integer categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
 }

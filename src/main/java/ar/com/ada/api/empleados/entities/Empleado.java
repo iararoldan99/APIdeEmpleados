@@ -13,30 +13,23 @@ public class Empleado {
     @Column(name = "empleado_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int empleadoId;
+    private Integer empleadoId;
     private String nombre;
-    private int edad;
+    private Integer edad;
     private BigDecimal sueldo;
+    @Column(name="fecha_alta")
     private Date fechaAlta;
+    @Column(name="fecha_baja")
     private Date fechaBaja;
     // no lo tratamos como objeto por eso la anotation es column
     @Column(name = "estado_id")
-    private int estadoId;
-
-    private int dni;
+    private Integer estadoId;
+    private Integer dni;
     // siempre que haya FK y los tratemos como objetos será utilizado el JoinColumn
     // en una clase y en la otra mappedBy
     @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
     @ManyToOne
     private Categoria categoria;
-
-    public int getEmpleadoId() {
-        return empleadoId;
-    }
-
-    public void setEmpleadoId(int empleadoId) {
-        this.empleadoId = empleadoId;
-    }
 
     public String getNombre() {
         return nombre;
@@ -44,14 +37,6 @@ public class Empleado {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
     }
 
     public BigDecimal getSueldo() {
@@ -99,14 +84,6 @@ public class Empleado {
         this.estadoId = estadoId.getValue();
     }
 
-    public int getDni() {
-        return dni;
-    }
-
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
     public Categoria getCategoria() {
         return categoria;
     }
@@ -149,6 +126,34 @@ public class Empleado {
             }
             return status;
         }
+    }
+
+    public Integer getEmpleadoId() {
+        return empleadoId;
+    }
+
+    public void setEmpleadoId(Integer empleadoId) {
+        this.empleadoId = empleadoId;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
+    }
+
+    public void setEstadoId(Integer estadoId) {
+        this.estadoId = estadoId;
+    }
+
+    public Integer getDni() {
+        return dni;
+    }
+
+    public void setDni(Integer dni) {
+        this.dni = dni;
     }
 
 }

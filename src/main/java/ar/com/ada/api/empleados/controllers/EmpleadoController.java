@@ -37,7 +37,7 @@ public class EmpleadoController {
         empleado.setSueldo(info.sueldo);
         empleado.setDni(info.dni);
         empleado.setFechaAlta(new Date());
-        empleado.setCategoria(categoriaService.obtenerPorId(info.categoriaId));
+        empleado.setCategoria(categoriaService.obtenerPorId(info.categoria));
         empleado.setEstadoId(EmpleadoEstadoEnum.ACTIVO);
         AltaEmpleado alta = empleadoService.crearEmpleado(empleado);
         GenericResponse gR = new GenericResponse();
@@ -81,7 +81,7 @@ public class EmpleadoController {
 
     // actualiza el sueldo por id 
     @PutMapping("/empleadas/{id}/sueldos")
-    public ResponseEntity<GenericResponse> actualizarSueldo(@PathVariable int id, @RequestBody SueldoModifRequest sueldoRequest){
+    public ResponseEntity<GenericResponse> actualizarSueldo(@PathVariable Integer id, @RequestBody SueldoModifRequest sueldoRequest){
         Empleado empleada = empleadoService.obtenerPorId(id);
         if(empleada == null) {
             return ResponseEntity.notFound().build();
