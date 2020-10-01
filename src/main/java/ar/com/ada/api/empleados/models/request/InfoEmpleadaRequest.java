@@ -6,7 +6,7 @@ public class InfoEmpleadaRequest {
     public String nombre;
     public Integer edad;
     public BigDecimal sueldo;
-    public Integer categoria;    
+    public Integer categoria;
     public Integer dni;
 
-}      
+}

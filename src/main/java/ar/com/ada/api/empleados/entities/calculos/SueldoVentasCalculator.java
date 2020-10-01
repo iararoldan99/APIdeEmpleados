@@ -6,8 +6,8 @@ import java.math.RoundingMode;
 import ar.com.ada.api.empleados.entities.Empleado;
 
 /**
- * SueldoVentasCalculator En este cao es siempre el sueldo base de la
- * categoria más el 10% de ventas.
+ * SueldoVentasCalculator En este cao es siempre el sueldo base de la categoria
+ * más el 10% de ventas.
  */
 public class SueldoVentasCalculator implements SueldoCalculator {
 
@@ -17,4 +17,4 @@ public class SueldoVentasCalculator implements SueldoCalculator {
                 .setScale(2, RoundingMode.HALF_EVEN);
     }
 
-} 
+}

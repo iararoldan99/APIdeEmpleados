@@ -15,14 +15,15 @@ import ar.com.ada.api.empleados.entities.Empleado;
 import ar.com.ada.api.empleados.models.response.CategoriasNombresResponse;
 import ar.com.ada.api.empleados.models.response.GenericResponse;
 import ar.com.ada.api.empleados.services.CategoriaService;
+
 @RestController
 public class CategoriaController {
 
     @Autowired
-    CategoriaService categoriaService; 
+    CategoriaService categoriaService;
 
-    @PostMapping("/categorias") // aca van a enviar una categoria
-    public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria){
+    @PostMapping("/categorias")
+    public ResponseEntity<?> crearCategoria(@RequestBody Categoria categoria) {
         categoriaService.crearCategoria(categoria);
         GenericResponse gR = new GenericResponse();
         gR.isOk = true;
@@ -30,20 +31,20 @@ public class CategoriaController {
         gR.message = "Categoria creada con exito";
         return ResponseEntity.ok(gR);
 
-    }    
+    }
 
-    @GetMapping("/categorias") // el servidor devolvera la lista cuando alguien haga GET 
-    public ResponseEntity<List<Categoria>> listarCategoria(){
-      return ResponseEntity.ok(categoriaService.obtenerCategorias());
+    @GetMapping("/categorias")
+    public ResponseEntity<List<Categoria>> listarCategoria() {
+        return ResponseEntity.ok(categoriaService.obtenerCategorias());
 
     }
 
     @GetMapping("/categorias/{categoriaId}")
-    public ResponseEntity<Categoria> obtenerPorId(@PathVariable Integer categoriaId){
+    public ResponseEntity<Categoria> obtenerPorId(@PathVariable Integer categoriaId) {
         Categoria categoria = categoriaService.obtenerPorId(categoriaId);
-    if (categoria == null)
-      return ResponseEntity.notFound().build();
-    return ResponseEntity.ok(categoria);
+        if (categoria == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(categoria);
 
     }
 
@@ -75,6 +76,6 @@ public class CategoriaController {
 
         r.nombres = categoriaService.obtenerNombresCategorias();
         return ResponseEntity.ok(r);
-        
+
     }
 }

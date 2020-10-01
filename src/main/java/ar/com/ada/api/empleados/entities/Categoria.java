@@ -21,33 +21,9 @@ public class Categoria {
     private String nombre;
     @Column(name = "sueldo_base")
     private BigDecimal sueldoBase;
-    // OneToMany la clase categoria va de una a muchas en empleado, va a aparecer
-    // varias veces una misma categoria
-    // mappedBy como voy a referenciarme al obj categoria pero desde el punto de
-    // vista empleado, "categoria"
-    // indica que le va a dar bola al atributo categoria que tenga el obj empleado,
-    // nombre del atributo en el obj (atributo categoria
-    // en el obj empleado), se tiene que llamar "categoria" el atributo en la clase
-    // Empleado (sino no lo va a encontrar)
-    // cascade, si traemos desde el repo un obj categoria el cascadeType.All va a
-    // traer todos los empleados
-    // fetch, obliga que traiga a todos de una, no se suele utilizar, es por fines
-    // educativos, se suele usar LAZY
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    // Ignora ese atributo cuando front lo manda
     @JsonIgnore
     private List<Empleado> empleados = new ArrayList<>();
-
-    /**
-     * - Pattern Desgign Strategy: en este caso, se uso como modelo el calculo de
-     * sueldos de un empleado. Si el empleado es Administrativo, el sueldo actual no
-     * puede ser menor al sueldo de la categoria cuando haya recalculo de sueldos.
-     * En el caso de un Auxiliar, el sueldo actual siempre es el sueldo de la
-     * categoria . En caso de vendedores, se usa el sueldo de la categoria base +
-     * 10% de comisiones sobre ventas. Para este caso se puso una interface
-     * SueldoCalculator, que se usa en la clase Categoria para calcular el sueldo.
-     * Cuando una categoria tenga nombre Administrativo, Pasasante
-     */
     @JsonIgnore
     @Transient // No meterlo a la base de datos. Es transitorio
     private SueldoCalculator sueldoStrategy;
@@ -73,7 +49,6 @@ public class Categoria {
 
             default:
 
-                // Por ahor default lo ponemos como Administrativo
                 this.setSueldoStrategy(new SueldoAdministrativoCalculator());
                 break;
         }

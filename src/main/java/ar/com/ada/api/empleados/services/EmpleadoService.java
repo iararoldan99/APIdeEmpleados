@@ -36,9 +36,8 @@ public class EmpleadoService {
 
         /**
          * if (resultadoValidacion == EmpleadoValidationType.EMPLEADO_OK)
-            alta.setResultado(AltaEmpleadoResultEnum.REALIZADA);
-        else
-            alta.setResultado(AltaEmpleadoResultEnum.RECHAZADA);
+         * alta.setResultado(AltaEmpleadoResultEnum.REALIZADA); else
+         * alta.setResultado(AltaEmpleadoResultEnum.RECHAZADA);
          */
         alta.setResultado(resultadoValidacion == EmpleadoValidationType.EMPLEADO_OK ? AltaEmpleadoResultEnum.REALIZADA
                 : AltaEmpleadoResultEnum.RECHAZADA);

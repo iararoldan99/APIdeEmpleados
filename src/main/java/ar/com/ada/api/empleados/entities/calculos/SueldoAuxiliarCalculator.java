@@ -15,4 +15,4 @@ public class SueldoAuxiliarCalculator implements SueldoCalculator {
         return empleado.getCategoria().getSueldoBase();
     }
 
-} 
+}

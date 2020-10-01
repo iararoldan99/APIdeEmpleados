@@ -11,4 +11,4 @@ public interface SueldoCalculator {
 
     BigDecimal calcularSueldo(Empleado empleado);
 
-} 
+}

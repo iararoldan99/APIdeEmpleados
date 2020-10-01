@@ -21,7 +21,6 @@ import ar.com.ada.api.empleados.models.request.InfoEmpleadaRequest;
 import ar.com.ada.api.empleados.models.request.SueldoModifRequest;
 import ar.com.ada.api.empleados.services.*;
 
-
 @RestController
 public class EmpleadoController {
     @Autowired
@@ -30,7 +29,7 @@ public class EmpleadoController {
     CategoriaService categoriaService;
 
     @PostMapping("/empleadas")
-    public ResponseEntity<?> crearEmpleado(@RequestBody InfoEmpleadaRequest info){
+    public ResponseEntity<?> crearEmpleado(@RequestBody InfoEmpleadaRequest info) {
         Empleado empleado = new Empleado();
         empleado.setNombre(info.nombre);
         empleado.setEdad(info.edad);
@@ -42,51 +41,44 @@ public class EmpleadoController {
         AltaEmpleado alta = empleadoService.crearEmpleado(empleado);
         GenericResponse gR = new GenericResponse();
         if (alta.getResultado() == AltaEmpleadoResultEnum.REALIZADA) {
-        gR.isOk = true;
-        gR.id = empleado.getEmpleadoId();
-        gR.message = "Empleada creada con exito";
-    } else {
-        gR.isOk = false;
-        gR.message = "Error al crear empleada, motivo: " + alta.getMotivo();
-    }
-    return ResponseEntity.ok(gR);
+            gR.isOk = true;
+            gR.id = empleado.getEmpleadoId();
+            gR.message = "Empleada creada con exito";
+        } else {
+            gR.isOk = false;
+            gR.message = "Error al crear empleada, motivo: " + alta.getMotivo();
+        }
+        return ResponseEntity.ok(gR);
 
     }
 
     @GetMapping("/empleadas")
-    public ResponseEntity<List<Empleado>> listarEmpleadas(){
+    public ResponseEntity<List<Empleado>> listarEmpleadas() {
         return ResponseEntity.ok(empleadoService.obtenerEmpleados());
     }
 
     @GetMapping("/empleadas/{id}")
-    // pathvariable es una variable de ruta, la variable id de tipo int
-    // va a estar en la ruta, se tiene que llavar igual a como esta declarado arriba
-    public ResponseEntity<Empleado> obtenerEmpleada(@PathVariable int id){
-        // siempre queremos que devuelva ok
+    public ResponseEntity<Empleado> obtenerEmpleada(@PathVariable int id) {
         Empleado empleada = empleadoService.obtenerPorId(id);
-        if(empleada == null) {
+        if (empleada == null) {
             return ResponseEntity.notFound().build();
-            // not found devuleve un objeto a construir
-            // return new ResponseEntity<>(HttpStatus.NOT_FOUND)
         }
-         return ResponseEntity.ok(empleada);
+        return ResponseEntity.ok(empleada);
     }
 
     @GetMapping("/empleadas/categorias/{categoriaId}")
-    public ResponseEntity<List<Empleado>> listarPorCategoriaId(@PathVariable int categoriaId){
+    public ResponseEntity<List<Empleado>> listarPorCategoriaId(@PathVariable int categoriaId) {
         List<Empleado> listaEmpleadas = categoriaService.obtenerPorId(categoriaId).getEmpleados();
         return ResponseEntity.ok(listaEmpleadas);
 
     }
 
-    // actualiza el sueldo por id 
     @PutMapping("/empleadas/{id}/sueldos")
-    public ResponseEntity<GenericResponse> actualizarSueldo(@PathVariable Integer id, @RequestBody SueldoModifRequest sueldoRequest){
+    public ResponseEntity<GenericResponse> actualizarSueldo(@PathVariable Integer id,
+            @RequestBody SueldoModifRequest sueldoRequest) {
         Empleado empleada = empleadoService.obtenerPorId(id);
-        if(empleada == null) {
+        if (empleada == null) {
             return ResponseEntity.notFound().build();
-            // not found devuleve un objeto a construir
-            // return new ResponseEntity<>(HttpStatus.NOT_FOUND)
         }
         empleada.setSueldo(sueldoRequest.sueldoNuevo);
         empleadoService.grabar(empleada);
@@ -95,18 +87,13 @@ public class EmpleadoController {
         gR.id = empleada.getEmpleadoId();
         gR.message = "Sueldo actualizado con exito";
         return ResponseEntity.ok(gR);
-    } 
+    }
 
-    // en el put se manda algo si o si, en el delete no se manda nada
-    // es un borrado logico
-
-    @DeleteMapping("/empleadas/{id}") // lo que esta entre las llaves son path variables
-    public ResponseEntity<GenericResponse> bajaEmpleada(@PathVariable int id){
+    @DeleteMapping("/empleadas/{id}")
+    public ResponseEntity<GenericResponse> bajaEmpleada(@PathVariable int id) {
         Empleado empleada = empleadoService.obtenerPorId(id);
-        if(empleada == null) {
+        if (empleada == null) {
             return ResponseEntity.notFound().build();
-            // not found devuleve un objeto a construir
-            // return new ResponseEntity<>(HttpStatus.NOT_FOUND)
         }
         empleada.setFechaBaja(new Date());
         empleada.setEstadoId(EmpleadoEstadoEnum.DESVINCULADO);
@@ -117,8 +104,4 @@ public class EmpleadoController {
         gR.message = "Empleada borrada con exito";
         return ResponseEntity.ok(gR);
     }
-    }
-    
-
-
-    
+}

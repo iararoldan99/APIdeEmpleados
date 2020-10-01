@@ -17,11 +17,10 @@ public class Empleado {
     private String nombre;
     private Integer edad;
     private BigDecimal sueldo;
-    @Column(name="fecha_alta")
+    @Column(name = "fecha_alta")
     private Date fechaAlta;
-    @Column(name="fecha_baja")
+    @Column(name = "fecha_baja")
     private Date fechaBaja;
-    // no lo tratamos como objeto por eso la anotation es column
     @Column(name = "estado_id")
     private Integer estadoId;
     private Integer dni;
